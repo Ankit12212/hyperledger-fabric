@@ -1,5 +1,5 @@
 #!/bin/sh
-#
+#This is generate.sh script
 # Copyright IBM Corp All Rights Reserved
 # SCRIPT FOR GENERATING CERTIFICATES AND ARTIFACTS
 

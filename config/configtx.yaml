@@ -1,11 +1,3 @@
-################################################################################
-#
-#   Section: Organizations
-#
-#   - This section defines the different organizational identities which will
-#   be referenced later in the configuration.
-#
-################################################################################
 Organizations:
   - &OrdererOrg
     Name: OrdererOrg
@@ -23,6 +15,7 @@ Organizations:
         Rule: "OR('OrdererMSP.admin')"
     OrdererEndpoints:
       - orderer.example.com:7050
+
   - &Org1
     Name: Org1MSP
     ID: Org1MSP
@@ -43,6 +36,7 @@ Organizations:
     AnchorPeers:
       - Host: peer0.org1.example.com
         Port: 7051
+
   - &Org2
     Name: Org2MSP
     ID: Org2MSP
@@ -63,11 +57,7 @@ Organizations:
     AnchorPeers:
       - Host: peer0.org2.example.com
         Port: 8051
-################################################################################
-#
-#   SECTION: Capabilities
-#
-################################################################################
+
 Capabilities:
   Channel: &ChannelCapabilities
     V2_0: true
@@ -75,11 +65,7 @@ Capabilities:
     V2_0: true
   Application: &ApplicationCapabilities
     V2_5: true
-################################################################################
-#
-#   SECTION: Application
-#
-################################################################################
+
 Application: &ApplicationDefaults
   Organizations:
   Policies:
@@ -100,11 +86,7 @@ Application: &ApplicationDefaults
       Rule: "MAJORITY Endorsement"
   Capabilities:
     <<: *ApplicationCapabilities
-################################################################################
-#
-#   SECTION: Orderer
-#
-################################################################################
+
 Orderer: &OrdererDefaults
   Addresses:
     - orderer.example.com:7050
@@ -127,11 +109,7 @@ Orderer: &OrdererDefaults
     BlockValidation:
       Type: ImplicitMeta
       Rule: "ANY Writers"
-################################################################################
-#
-#   CHANNEL
-#
-################################################################################
+
 Channel: &ChannelDefaults
   Policies:
     Readers:
@@ -145,11 +123,7 @@ Channel: &ChannelDefaults
       Rule: "MAJORITY Admins"
   Capabilities:
     <<: *ChannelCapabilities
-################################################################################
-#
-#   Profile
-#
-################################################################################
+
 Profiles:
   TwoOrgsOrdererGenesis:
     <<: *ChannelDefaults
@@ -165,12 +139,11 @@ Profiles:
       Organizations:
         - *OrdererOrg
       Capabilities: *OrdererCapabilities
-    Application:
-      <<: *ApplicationDefaults
-      Organizations:
-        - *Org1
-        - *Org2
-      Capabilities: *ApplicationCapabilities
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - *Org1
+          - *Org2
 
   TwoOrgsChannel:
     <<: *ChannelDefaults
