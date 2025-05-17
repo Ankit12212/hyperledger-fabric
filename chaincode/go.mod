@@ -1,6 +1,6 @@
-module chaincode
+module github.com/66571660/fabric-samples/cbdc/chaincode2
 
-go 1.18
+go 1.24.2
 
 require github.com/hyperledger/fabric-contract-api-go v1.2.2
 
